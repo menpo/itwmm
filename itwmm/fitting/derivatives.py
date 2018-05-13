@@ -30,14 +30,14 @@ def d_perspective_camera_d_shape_parameters(shape_pc_uv, warped_uv, camera):
 
     # Compute constant
     # (focal length divided by squared Z dimension of warped shape)
-    z = warped_uv[:, 2]
+    z_inv = 1 / warped_uv[:, 2]
 
-    # n_dims, n_parameters, n_points
+    # 3 x n_c x n_samples
     dw_da = camera.rotation_transform.apply(shape_pc_uv.transpose(0, 2, 1)).T
 
-    dw_da[:2] -= warped_uv[:, :2].T[:, None] * dw_da[2] / z
+    dw_da[:2] -= warped_uv[:, :2].T[:, None] * dw_da[2] * z_inv
 
-    return camera.projection_transform.focal_length * dw_da[:2] / z
+    return camera.projection_transform.focal_length * dw_da[:2] * z_inv
 
 
 def d_orthographic_camera_d_shape_parameters(shape_pc_uv, camera):
