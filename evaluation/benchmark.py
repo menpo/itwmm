@@ -10,8 +10,8 @@ from menpofit.visualize import (plot_cumulative_error_distribution,
                                 statistics_table, 
                                 print_progress)
 
-from .eos import load_eos_low_res_lm_index, upsample_eos_low_res_to_fw_no_texture
-from .kfeval import (landmark_and_mask_gt_mesh,
+from eos import load_eos_low_res_lm_index, upsample_eos_low_res_to_fw_no_texture
+from kfeval import (landmark_and_mask_gt_mesh,
                      mask_align_and_calculate_dense_error)
 
 
